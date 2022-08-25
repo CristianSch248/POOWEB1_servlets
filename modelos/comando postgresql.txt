@@ -1,0 +1,28 @@
+CREATE TABLE PERMISSAO(
+	id_permissao serial,
+	nome_permissao varchar(30) not null,
+	primary key(id_permissao)
+);
+insert into PERMISSAO (nome_permissao) values ('admin');
+select * from PERMISSAO;
+
+create table USUARIO(
+	id_user serial,
+	nome varchar(25) not null,
+	email varchar(30) not null unique,
+	senha varchar(30) not null,
+	data_cadastro date,
+	ativo boolean,
+	id_permissao integer,
+	primary key(id_user),
+	foreign key (id_permissao) references PERMISSAO(id_permissao)
+);
+
+SELECT * FROM USUARIO, permissao
+		WHERE usuario.id_permissao = permissao.id_permissao;
+
+INSERT INTO USUARIO (nome, email, senha, data_cadastro, ativo, id_permissao)
+VALUES	('Jeferson', 'gatinho52@gmail.com', 'senha123', CURRENT_DATE, true, 1)
+
+INSERT INTO USUARIO (nome, email, senha, data_cadastro, ativo, id_permissao)
+VALUES	('cristian', 'cristian@gmail.com', '1234', CURRENT_DATE, true, 1)

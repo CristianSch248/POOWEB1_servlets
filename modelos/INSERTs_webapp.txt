@@ -1,0 +1,46 @@
+INSERT INTO permissao(nome_permissao) VALUES('admin');
+INSERT INTO permissao(nome_permissao) VALUES('medico');
+INSERT INTO permissao(nome_permissao) VALUES('atendente');
+SELECT * FROM permissao;
+
+INSERT INTO hospital(nome_hospital) VALUES('HUSM');
+SELECT * FROM hospital;
+
+INSERT INTO paciente(nome_paciente, idade, sexo, telefone, CPF) VALUES('Cristian', 22, 'm', '(12)3 4567-8910', '111.222.333-44');
+INSERT INTO paciente(nome_paciente, idade, sexo, telefone, CPF) VALUES('Gabriel', 30, 'm', '(98)7 6543-2109', '444.555.666-77');
+INSERT INTO paciente(nome_paciente, idade, sexo, telefone, CPF) VALUES('Ana', 25, 'f', '(99)8 7777-6666');
+SELECT * FROM paciente;
+
+INSERT INTO quarto(nome_quarto, id_hospital) VALUES('Quarto azul', 1);
+INSERT INTO quarto(nome_quarto, id_hospital) VALUES('Quarto verde', 1);
+INSERT INTO quarto(nome_quarto, id_hospital) VALUES('Quarto amarelo', 1);
+SELECT * FROM quarto;
+
+INSERT INTO leito(disponivel, id_quarto) VALUES(TRUE, 1);
+INSERT INTO leito(disponivel, id_quarto) VALUES(TRUE, 2);
+INSERT INTO leito(disponivel, id_quarto) VALUES(TRUE, 3);
+SELECT * FROM leito;
+
+INSERT INTO internacao(id_paciente, id_leito, data_entrada, data_saida, interna_status) VALUES(1, 1, CURRENT_DATE, CURRENT_DATE, TRUE);
+INSERT INTO internacao(id_paciente, id_leito, data_entrada, data_saida, interna_status) VALUES(2, 2, CURRENT_DATE, CURRENT_DATE, TRUE);
+INSERT INTO internacao(id_paciente, id_leito, data_entrada, data_saida, interna_status) VALUES(3, 3, CURRENT_DATE, CURRENT_DATE, TRUE);
+SELECT * FROM internacao;
+
+INSERT INTO usuario(email, senha, id_hospital, id_permissao) VALUES('carlos@email.com', '1234', 1, 1);
+INSERT INTO usuario(email, senha, id_hospital, id_permissao) VALUES('vanessa@email.com', '1234', 1, 2);
+INSERT INTO usuario(email, senha, id_hospital, id_permissao) VALUES('camila@email.com', '1234', 1, 3);
+SELECT * FROM usuario;
+
+INSERT INTO medico(nome_medico, especialidade, id_hospital, id_usuario) VALUES('Vanessa Silva', 'cardiologista', 1, 2);
+SELECT * FROM medico;
+
+INSERT INTO atendente(nome_atendente, id_usuario) VALUES('Camila Moura', 3);
+SELECT * FROM atendente;
+
+INSERT INTO admin(nome_admin, id_usuario) VALUES('Carlos Gonçalves', 1);
+SELECT * FROM admin;
+
+INSERT INTO atendimento(id_paciente, id_medico, caso, data_entrada, data_saida, atendimento_status) VALUES(1, 1, 'Problema cardiaco', CURRENT_DATE, CURRENT_DATE, TRUE);
+INSERT INTO atendimento(id_paciente, id_medico, caso, data_entrada, data_saida, atendimento_status) VALUES(2, 1, 'Problema cardiaco', CURRENT_DATE, CURRENT_DATE, TRUE);
+INSERT INTO atendimento(id_paciente, id_medico, caso, data_entrada, data_saida, atendimento_status) VALUES(3, 1, 'Problema cardiaco', CURRENT_DATE, CURRENT_DATE, TRUE);
+SELECT * FROM atendimento;

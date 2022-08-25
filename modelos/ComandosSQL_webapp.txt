@@ -1,0 +1,89 @@
+CREATE TABLE permissao(
+	id_permissao serial,
+	nome_permissao varchar(30) not null,
+	PRIMARY KEY(id_permissao));
+	
+CREATE TABLE hospital(
+	id_hospital serial,
+	nome_hospital varchar(50),
+	PRIMARY KEY(id_hospital));
+	
+CREATE TABLE paciente(
+	id_paciente serial,
+	nome_paciente varchar(50),
+	idade int,
+	sexo varchar(10),
+	telefone varchar(20),
+	CPF varchar(14),
+	PRIMARY KEY(id_paciente));
+	
+CREATE TABLE quarto(
+	id_quarto serial,
+	nome_quarto varchar(50),
+	id_hospital int,
+	PRIMARY KEY(id_quarto),
+	FOREIGN KEY(id_hospital) REFERENCES hospital(id_hospital));
+	
+CREATE TABLE leito(
+	id_leito serial,
+	disponivel boolean,
+	id_quarto int,
+	PRIMARY KEY(id_leito),
+	FOREIGN KEY(id_quarto) REFERENCES quarto(id_quarto));
+
+CREATE TABLE internacao(
+	id_internacao serial,
+	data_entrada date, 
+	data_saida date,
+	interna_status boolean,
+	id_paciente int,
+	id_leito int,
+	PRIMARY KEY(id_internacao),
+	FOREIGN KEY(id_paciente) REFERENCES paciente(id_paciente),
+	FOREIGN KEY(id_leito) REFERENCES leito(id_leito));
+
+CREATE TABLE usuario(
+	id_usuario serial,
+	email varchar(50),
+	senha varchar(50),
+	id_hospital int,
+	id_permissao int,
+	PRIMARY KEY(id_usuario),
+	FOREIGN KEY(id_hospital) REFERENCES hospital(id_hospital),
+	FOREIGN KEY(id_permissao) REFERENCES permissao(id_permissao));
+
+CREATE TABLE medico(
+	id_medico serial,
+	nome_medico varchar(50),
+	especialidade varchar(50),
+	id_hospital int,
+	id_usuario int,
+	PRIMARY KEY(id_medico),
+	FOREIGN KEY(id_hospital) REFERENCES hospital(id_hospital),
+	FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario));
+
+CREATE TABLE atendente(
+	id_atendente serial,
+	nome_atendente varchar(50),
+	id_usuario int,
+	PRIMARY KEY(id_atendente),
+	FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario));
+
+CREATE TABLE admin(
+	id_admin serial,
+	nome_admin varchar(50),
+	id_usuario int,
+	PRIMARY KEY(id_admin),
+	FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario));
+
+CREATE TABLE atendimento(
+	id_atendimento serial,
+	data_entrada date,
+	data_saida date,
+	caso varchar(50),
+	atendimento_status boolean,
+	id_paciente int,
+	id_medico int,
+	PRIMARY KEY(id_atendimento),
+	FOREIGN KEY(id_paciente) REFERENCES paciente(id_paciente),
+	FOREIGN KEY(id_medico) REFERENCES medico(id_medico));
